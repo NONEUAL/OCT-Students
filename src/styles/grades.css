@@ -1,70 +1,69 @@
-.grades__table-wrap {
-  overflow: hidden;
+.grades__summary-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
+.grades__gwa-card {
+  background: #fff;
+  border-radius: 13px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 10px rgba(13,42,13,0.06);
+  min-width: 150px;
+}
+.grades__gwa-label { font-size: 10.5px; font-weight: 700; color: #7aaa80; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.grades__gwa-value { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 700; color: #1a3a1a; letter-spacing: -0.4px; }
+.grades__gwa-badge {
+  display: inline-block; margin-top: 6px;
+  font-size: 9.5px; background: #e8f5e9; color: #1a3a1a;
+  padding: 3px 10px; border-radius: 7px; font-weight: 700; letter-spacing: 0.5px;
+}
+
+.grades__table-wrap { overflow-x: auto; }
+
 .grades__code-badge {
-  font-size: 10px;
-  font-weight: 700;
-  color: #2d6a35;
-  background: #e8f5e9;
-  padding: 3px 8px;
-  border-radius: 6px;
-  letter-spacing: 0.3px;
-  white-space: nowrap;
+  font-size: 10px; font-weight: 700; color: #2d6a35;
+  background: #e8f5e9; padding: 3px 8px; border-radius: 6px;
+  letter-spacing: 0.3px; white-space: nowrap;
 }
 
 .grades__avg-cell {
   font-family: 'Syne', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
-  color: #1a3a1a;
-  letter-spacing: -0.2px;
 }
 
 .grades__status-badge {
-  font-size: 9.5px;
-  padding: 3px 10px;
-  border-radius: 7px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  font-size: 9.5px; padding: 3px 10px; border-radius: 7px;
+  font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
 }
+.grades__status-badge--passing { background: #e8f5e9; color: #1a3a1a; }
+.grades__status-badge--failed  { background: #fdecea; color: #b71c1c; }
 
-.grades__status-badge--passing {
-  background: #e8f5e9;
-  color: #1a3a1a;
+/* dropdown reuse */
+.dropdown-wrap { position: relative; display: inline-flex; align-items: center; }
+.dropdown {
+  appearance: none;
+  background: #fff;
+  border: 1.5px solid #c8e6c9;
+  border-radius: 9px;
+  padding: 8px 36px 8px 12px;
+  font-size: 12.5px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #0d1f0d;
+  cursor: pointer;
+  outline: none;
+  font-weight: 500;
 }
-
-.grades__status-badge--failed {
-  background: #fdecea;
-  color: #b71c1c;
-}
-
-.grades__gwa-label {
-  font-size: 12px;
-  color: #3a5c3a;
-}
-
-.grades__gwa-value {
-  font-family: 'Syne', sans-serif;
-  font-size: 21px;
-  font-weight: 700;
-  color: #1a3a1a;
-  letter-spacing: -0.3px;
-}
-
-.grades__gwa-badge {
-  font-size: 9.5px;
-  background: #e8f5e9;
-  color: #1a3a1a;
-  padding: 3px 10px;
-  border-radius: 7px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
+.dropdown:focus { border-color: #2d6a35; }
+.dropdown-icon  { position: absolute; right: 10px; pointer-events: none; color: #7aaa80; }
 
 @media (max-width: 768px) {
-  .data-table { font-size: 11px; }
+  .grades__summary-row { gap: 8px; }
+  .grades__gwa-card    { min-width: 120px; padding: 12px 14px; }
+  .data-table          { font-size: 11px; }
   .data-table thead th,
   .data-table tbody td { padding: 9px 10px; }
 }

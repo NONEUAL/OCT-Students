@@ -6,19 +6,21 @@ import Sidebar      from "./components/Sidebar.jsx";
 import LoginPage    from "./views/LoginPage.jsx";
 import RegisterPage from "./views/RegisterPage.jsx";
 
-import DashboardView  from "./views/DashboardView.jsx";
-import ScheduleView   from "./views/ScheduleView.jsx";
-import GradesView     from "./views/GradesView.jsx";
-import PaymentsView   from "./views/PaymentsView.jsx";
-import ProfileView    from "./views/ProfileView.jsx";
-import PlaceholderView from "./views/PlaceholderView.jsx";
+import DashboardView       from "./views/DashboardView.jsx";
+import ScheduleView        from "./views/ScheduleView.jsx";
+import GradesView          from "./views/GradesView.jsx";
+import TuitionView         from "./views/TuitionView.jsx";
+import DocumentRequestView from "./views/DocumentRequestView.jsx";
+import ProfileView         from "./views/ProfileView.jsx";
+import PlaceholderView     from "./views/PlaceholderView.jsx";
 
 function renderView(active, user, onNavigate, onLogout) {
   switch (active) {
-    case "dashboard": return <DashboardView onNavigate={onNavigate} />;
+    case "dashboard": return <DashboardView onNavigate={onNavigate} user={user} />;
     case "schedule":  return <ScheduleView />;
     case "grades":    return <GradesView />;
-    case "payments":  return <PaymentsView />;
+    case "payments":  return <TuitionView />;
+    case "documents": return <DocumentRequestView />;
     case "profile":   return <ProfileView user={user} onLogout={onLogout} />;
     default:          return <PlaceholderView label={active} />;
   }
@@ -27,16 +29,13 @@ function renderView(active, user, onNavigate, onLogout) {
 export default function App() {
   const isMobile = () => window.innerWidth <= 768;
 
-  // Auth state
   const [user,      setUser]      = useState(null);
-  const [authPage,  setAuthPage]  = useState("login"); // "login" | "register"
+  const [authPage,  setAuthPage]  = useState("login");
   const [authReady, setAuthReady] = useState(false);
 
-  // Portal state
   const [active,  setActive]  = useState("dashboard");
   const [sidebar, setSidebar] = useState(!isMobile());
 
-  // Check existing session on mount
   useEffect(() => {
     const session = localStorage.getItem("oct_session");
     if (session) {
@@ -67,14 +66,12 @@ export default function App() {
 
   if (!authReady) return null;
 
-  // Not logged in → show auth pages
   if (!user) {
     return authPage === "login"
       ? <LoginPage onLogin={handleLogin} onGoRegister={() => setAuthPage("register")} />
       : <RegisterPage onRegister={handleRegister} onGoLogin={() => setAuthPage("login")} />;
   }
 
-  // Logged in → show portal
   return (
     <div className="app-shell">
       <Navbar onToggleSidebar={() => setSidebar(s => !s)} user={user} />
