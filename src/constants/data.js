@@ -27,20 +27,14 @@ export const NAV_ITEMS = [
   {
     section: "Academic",
     items: [
-      { id: "schedule", label: "Class Schedule", icon: "Clock"     },
-      { id: "grades",   label: "Grades",          icon: "BarChart2" },
+      { id: "schedule", label: "Class Schedule",   icon: "Clock"     },
+      { id: "grades",   label: "Grades",            icon: "BarChart2" },
     ],
   },
   {
     section: "Financial",
     items: [
       { id: "payments", label: "Tuition & Payments", icon: "Receipt" },
-    ],
-  },
-  {
-    section: "Documents",
-    items: [
-      { id: "documents", label: "Document Requests", icon: "FileText" },
     ],
   },
   {
@@ -86,12 +80,11 @@ export const GRADES = [
   { subject: "System Analysis and Design",                               code: "IT 204",        units: 3, prelim: 89, midterm: 92, finals: 91 },
 ];
 
-// Tuition & Payments
 export const TUITION_SUMMARY = {
-  totalFee:    28500,
-  totalPaid:   14000,
-  dueDate:     "March 15, 2026",
-  semester:    "2nd Semester AY 2025–2026",
+  totalFee:  28500,
+  totalPaid: 14000,
+  dueDate:   "March 15, 2026",
+  semester:  "2nd Semester AY 2025–2026",
   breakdown: [
     { label: "Tuition Fee",        amount: 22000 },
     { label: "Miscellaneous Fee",  amount: 3500  },
@@ -102,52 +95,7 @@ export const TUITION_SUMMARY = {
 };
 
 export const PAYMENTS = [
-  { date: "Feb 1, 2026",  amount: 5000, desc: "2nd Payment",              ref: "REF-2026-002", method: "GCash"         },
-  { date: "Jan 15, 2026", amount: 5000, desc: "1st Payment",              ref: "REF-2026-001", method: "Cash"          },
-  { date: "Aug 10, 2025", amount: 4000, desc: "1st Sem — Final Payment",  ref: "REF-2025-089", method: "Bank Transfer" },
-];
-
-// Document Requests
-export const DOCUMENT_TYPES = [
-  {
-    id:          "coe",
-    label:       "Certificate of Enrollment",
-    description: "Proof that you are currently enrolled this semester.",
-    processDays: 2,
-    icon:        "FileCheck",
-  },
-  {
-    id:          "cog",
-    label:       "Certificate of Grades",
-    description: "Official record of your grades for a specific semester.",
-    processDays: 3,
-    icon:        "BarChart2",
-  },
-  {
-    id:          "goodmoral",
-    label:       "Good Moral Certificate",
-    description: "Character certificate issued by the school.",
-    processDays: 3,
-    icon:        "ShieldCheck",
-  },
-  {
-    id:          "transcript",
-    label:       "Official Transcript of Records",
-    description: "Complete academic record across all semesters.",
-    processDays: 7,
-    icon:        "Scroll",
-  },
-  {
-    id:          "diploma",
-    label:       "Diploma / Authentication",
-    description: "For authentication or duplicate diploma requests.",
-    processDays: 10,
-    icon:        "Award",
-  },
-];
-
-export const DOCUMENT_REQUESTS = [
-  { id: "REQ-001", type: "Certificate of Enrollment", requestedDate: "Feb 20, 2026", status: "Ready",      remarks: "Available at Registrar's Office" },
-  { id: "REQ-002", type: "Certificate of Grades",     requestedDate: "Feb 10, 2026", status: "Released",   remarks: "Released Feb 13, 2026"           },
-  { id: "REQ-003", type: "Good Moral Certificate",    requestedDate: "Mar 1, 2026",  status: "Processing", remarks: ""                                 },
+  { date: "Feb 1, 2026",  amount: 5000, desc: "2nd Payment",              ref: "REF-2026-002", method: "GCash"          },
+  { date: "Jan 15, 2026", amount: 5000, desc: "1st Payment",              ref: "REF-2026-001", method: "Cash"           },
+  { date: "Aug 10, 2025", amount: 4000, desc: "1st Sem — Final Payment",  ref: "REF-2025-089", method: "Bank Transfer"  },
 ];

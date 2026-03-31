@@ -6,13 +6,12 @@ import Sidebar      from "./components/Sidebar.jsx";
 import LoginPage    from "./views/LoginPage.jsx";
 import RegisterPage from "./views/RegisterPage.jsx";
 
-import DashboardView       from "./views/DashboardView.jsx";
-import ScheduleView        from "./views/ScheduleView.jsx";
-import GradesView          from "./views/GradesView.jsx";
-import TuitionView         from "./views/TuitionView.jsx";
-import DocumentRequestView from "./views/DocumentRequestView.jsx";
-import ProfileView         from "./views/ProfileView.jsx";
-import PlaceholderView     from "./views/PlaceholderView.jsx";
+import DashboardView   from "./views/DashboardView.jsx";
+import ScheduleView    from "./views/ScheduleView.jsx";
+import GradesView      from "./views/GradesView.jsx";
+import TuitionView     from "./views/TuitionView.jsx";
+import ProfileView     from "./views/ProfileView.jsx";
+import PlaceholderView from "./views/PlaceholderView.jsx";
 
 function renderView(active, user, onNavigate, onLogout) {
   switch (active) {
@@ -20,7 +19,6 @@ function renderView(active, user, onNavigate, onLogout) {
     case "schedule":  return <ScheduleView />;
     case "grades":    return <GradesView />;
     case "payments":  return <TuitionView />;
-    case "documents": return <DocumentRequestView />;
     case "profile":   return <ProfileView user={user} onLogout={onLogout} />;
     default:          return <PlaceholderView label={active} />;
   }
