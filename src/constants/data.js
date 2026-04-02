@@ -14,11 +14,6 @@ export const COLORS = {
   border: "#c8e6c9",
 };
 
-export const FONTS = {
-  display: "'Syne', sans-serif",
-  body: "'Plus Jakarta Sans', sans-serif",
-};
-
 export const NAV_ITEMS = [
   {
     section: null,
@@ -27,8 +22,8 @@ export const NAV_ITEMS = [
   {
     section: "Academic",
     items: [
-      { id: "schedule", label: "Class Schedule",   icon: "Clock"     },
-      { id: "grades",   label: "Grades",            icon: "BarChart2" },
+      { id: "schedule", label: "Class Schedule",    icon: "Clock"     },
+      { id: "grades",   label: "Grades",             icon: "BarChart2" },
     ],
   },
   {
@@ -95,7 +90,24 @@ export const TUITION_SUMMARY = {
 };
 
 export const PAYMENTS = [
-  { date: "Feb 1, 2026",  amount: 5000, desc: "2nd Payment",              ref: "REF-2026-002", method: "GCash"          },
-  { date: "Jan 15, 2026", amount: 5000, desc: "1st Payment",              ref: "REF-2026-001", method: "Cash"           },
-  { date: "Aug 10, 2025", amount: 4000, desc: "1st Sem — Final Payment",  ref: "REF-2025-089", method: "Bank Transfer"  },
+  { date: "Feb 1, 2026",  amount: 5000, desc: "2nd Payment",             ref: "REF-2026-002", method: "GCash"         },
+  { date: "Jan 15, 2026", amount: 5000, desc: "1st Payment",             ref: "REF-2026-001", method: "Cash"          },
+  { date: "Aug 10, 2025", amount: 4000, desc: "1st Sem — Final Payment", ref: "REF-2025-089", method: "Bank Transfer" },
+];
+
+// type: "exam" | "holiday" | "event"
+// month is 0-indexed (0 = Jan, 3 = Apr)
+export const CALENDAR_EVENTS = [
+  { date: new Date(2026, 3,  7), label: "Foundation Day",      type: "holiday" },
+  { date: new Date(2026, 3,  9), label: "Araw ng Kagitingan",  type: "holiday" },
+  { date: new Date(2026, 3, 14), label: "Finals Week Begins",  type: "exam"    },
+  { date: new Date(2026, 3, 15), label: "Tuition Deadline",    type: "event"   },
+  { date: new Date(2026, 3, 17), label: "Good Friday",         type: "holiday" },
+  { date: new Date(2026, 3, 18), label: "Black Saturday",      type: "holiday" },
+  { date: new Date(2026, 3, 20), label: "Easter Monday",       type: "holiday" },
+  { date: new Date(2026, 3, 24), label: "Finals Week Ends",    type: "exam"    },
+  { date: new Date(2026, 3, 28), label: "Enrollment Opens",    type: "event"   },
+  { date: new Date(2026, 2, 15), label: "Tuition Deadline",    type: "event"   },
+  { date: new Date(2026, 2, 23), label: "Midterm Exams Begin", type: "exam"    },
+  { date: new Date(2026, 2, 27), label: "Midterm Exams End",   type: "exam"    },
 ];

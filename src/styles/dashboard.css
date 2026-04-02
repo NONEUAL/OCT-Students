@@ -9,30 +9,11 @@
 }
 .dashboard__banner-orb-1 { position: absolute; right: -40px; top: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(200,168,37,0.09); pointer-events: none; }
 .dashboard__banner-orb-2 { position: absolute; right: 60px; bottom: -50px; width: 120px; height: 120px; border-radius: 50%; background: rgba(200,168,37,0.05); pointer-events: none; }
-.dashboard__banner-content { position: relative; z-index: 1; }
-.dashboard__banner-eyebrow {
-  color: rgba(200,168,37,0.78);
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  margin-bottom: 7px;
-  font-weight: 600;
-}
-.dashboard__banner-title {
-  font-family: 'Urbanist', sans-serif;
-  color: #fff;
-  font-size: 23px;
-  font-weight: 700;
-  letter-spacing: -0.2px;
-}
-.dashboard__banner-sub {
-  color: rgba(255,255,255,0.52);
-  font-size: 12.5px;
-  margin-top: 6px;
-  max-width: 420px;
-  line-height: 1.55;
-}
-.dashboard__banner-actions { display: flex; gap: 10px; margin-top: 16px; }
+.dashboard__banner-content  { position: relative; z-index: 1; }
+.dashboard__banner-eyebrow  { color: rgba(200,168,37,0.78); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 7px; font-weight: 600; }
+.dashboard__banner-title    { font-family: 'Urbanist', sans-serif; color: #fff; font-size: 23px; font-weight: 700; letter-spacing: -0.2px; }
+.dashboard__banner-sub      { color: rgba(255,255,255,0.52); font-size: 12.5px; margin-top: 6px; max-width: 420px; line-height: 1.55; }
+.dashboard__banner-actions  { display: flex; gap: 10px; margin-top: 16px; }
 
 /* ── Two-col grid ── */
 .dashboard__grid {
@@ -73,112 +54,182 @@
 .section-card-link:hover { background: #e8f5e9; }
 
 /* ── Grades table on dashboard ── */
-.dashboard__grades-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.dashboard__grades-table thead tr { background: linear-gradient(100deg, #0a1f0a, #2d6a35); }
-.dashboard__grades-table thead th {
-  padding: 10px 12px;
-  text-align: left;
-  color: #fff;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-}
+.dashboard__grades-table { width: 100%; border-collapse: collapse; }
+.dashboard__grades-table thead tr         { background: linear-gradient(100deg, #0a1f0a, #2d6a35); }
+.dashboard__grades-table thead th         { padding: 10px 12px; text-align: left; color: #fff; font-size: 10.5px; font-weight: 600; letter-spacing: 0.4px; }
 .dashboard__grades-table tbody tr:nth-child(even) { background: #f4fbf5; }
 .dashboard__grades-table tbody tr:nth-child(odd)  { background: #fff; }
-.dashboard__grades-table tbody td {
-  padding: 9px 12px;
-  border-bottom: 1px solid #e8f5e9;
-  font-size: 12px;
-  color: #0d1f0d;
-}
-.dashboard__grades-table tbody tr:last-child td { border-bottom: none; }
+.dashboard__grades-table tbody td         { padding: 9px 12px; border-bottom: 1px solid #e8f5e9; font-size: 12px; color: #0d1f0d; }
+.dashboard__grades-table tbody tr:last-child td   { border-bottom: none; }
 
 .dash-grade-code {
-  font-size: 10px;
-  font-weight: 700;
-  color: #2d6a35;
-  background: #e8f5e9;
-  padding: 2px 7px;
-  border-radius: 5px;
-  white-space: nowrap;
+  font-size: 10px; font-weight: 700; color: #2d6a35;
+  background: #e8f5e9; padding: 2px 7px; border-radius: 5px; white-space: nowrap;
 }
-.dash-grade-avg {
-  font-family: 'Urbanist', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-}
+.dash-grade-avg  { font-family: 'Urbanist', sans-serif; font-size: 14px; font-weight: 700; }
 .dash-grade-status {
-  font-size: 9px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
+  font-size: 9px; font-weight: 700; padding: 2px 8px;
+  border-radius: 6px; text-transform: uppercase; letter-spacing: 0.4px;
 }
 .dash-grade-status--pass { background: #e8f5e9; color: #1a3a1a; }
 .dash-grade-status--fail { background: #fdecea; color: #b71c1c; }
 
-/* ── GWA card ── */
-.dashboard__gwa-card {
-  padding: 22px 22px 20px;
+/* ── Calendar card ── */
+.cal-card { padding: 18px 18px 16px; }
+
+.cal-header {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
-.dashboard__gwa-eyebrow {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #7aaa80;
-  margin-bottom: 8px;
-}
-.dashboard__gwa-num {
+.cal-month {
   font-family: 'Urbanist', sans-serif;
-  font-size: 52px;
-  font-weight: 800;
-  color: #1a3a1a;
-  letter-spacing: -3px;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-.dashboard__gwa-badge {
-  display: inline-block;
-  font-size: 10px;
+  font-size: 15px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  background: #e8f5e9;
   color: #1a3a1a;
-  padding: 4px 11px;
-  border-radius: 7px;
-  margin-bottom: 10px;
 }
-.dashboard__gwa-sub {
+.cal-year {
   font-size: 11.5px;
   color: #7aaa80;
-  margin-bottom: 18px;
+  font-weight: 500;
 }
-.dashboard__gwa-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: linear-gradient(100deg, #1a3a1a, #2d6a35);
-  color: #fff;
-  border: none;
-  border-radius: 9px;
-  padding: 9px 15px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+.cal-nav {
+  display: flex;
+  gap: 4px;
+}
+.cal-nav-btn {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  border: 1.5px solid #c8e6c9;
+  background: none;
   cursor: pointer;
-  transition: opacity 0.15s;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3a5c3a;
+  transition: background 0.15s, border-color 0.15s;
 }
-.dashboard__gwa-btn:hover { opacity: 0.88; }
+.cal-nav-btn:hover { background: #e8f5e9; border-color: #2d6a35; }
+
+/* Day-of-week labels */
+.cal-dow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+.cal-dow-cell {
+  text-align: center;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #7aaa80;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding-bottom: 6px;
+}
+
+/* Day grid */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  position: relative;
+  cursor: default;
+}
+.cal-day-num {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #1a3a1a;
+  line-height: 1;
+}
+.cal-day--empty .cal-day-num  { color: transparent; }
+.cal-day--today               { background: #1a3a1a; }
+.cal-day--today .cal-day-num  { color: #fff; font-weight: 700; }
+.cal-day--sunday .cal-day-num { color: #c62828; }
+.cal-day--sunday.cal-day--today .cal-day-num { color: #fff; }
+
+/* Event dot */
+.cal-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.cal-dot--exam    { background: #c62828; }
+.cal-dot--holiday { background: #c8a825; }
+.cal-dot--event   { background: #2d6a35; }
+
+/* ── Legend ── */
+.cal-legend {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #e8f5e9;
+  flex-wrap: wrap;
+}
+.cal-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: #3a5c3a;
+  font-weight: 500;
+}
+.cal-legend-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+}
+
+/* ── Upcoming events list ── */
+.cal-events {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cal-event-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border-radius: 9px;
+  background: #f4fbf5;
+}
+.cal-event-date {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a3a1a;
+  min-width: 24px;
+  text-align: center;
+  line-height: 1;
+}
+.cal-event-label {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #0d1f0d;
+  flex: 1;
+}
+.cal-event-tag {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+.cal-event-tag--exam    { background: #fdecea; color: #b71c1c; }
+.cal-event-tag--holiday { background: #fff3e0; color: #7a4a00; }
+.cal-event-tag--event   { background: #e8f5e9; color: #1a3a1a; }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
@@ -187,7 +238,6 @@
 @media (max-width: 768px) {
   .dashboard__banner       { padding: 20px 18px; border-radius: 14px; }
   .dashboard__banner-title { font-size: 18px; }
-  .dashboard__gwa-num      { font-size: 40px; }
 }
 @media (max-width: 480px) {
   .dashboard__banner-actions { flex-direction: column; }
