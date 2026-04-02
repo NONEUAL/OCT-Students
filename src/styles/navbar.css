@@ -19,13 +19,13 @@
 .navbar__hamburger {
   background: none; border: none; color: #c8a825; cursor: pointer;
   display: flex; align-items: center; padding: 5px; border-radius: 8px;
-  z-index: 1; transition: background 0.15s;
+  z-index: 1; transition: background 0.15s; flex-shrink: 0;
 }
 .navbar__hamburger:hover { background: rgba(200, 168, 37, 0.12); }
 
 .navbar__logo { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; z-index: 1; flex-shrink: 0; }
 
-.navbar__brand     { z-index: 1; }
+.navbar__brand     { z-index: 1; min-width: 0; }
 .navbar__brand-name {
   font-family: 'Urbanist', sans-serif;
   color: #ffffff;
@@ -33,6 +33,9 @@
   font-weight: 700;
   letter-spacing: -0.2px;
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .navbar__brand-sub {
   color: rgba(200, 168, 37, 0.68);
@@ -56,7 +59,7 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.navbar__notif         { position: relative; z-index: 1; }
+.navbar__notif         { position: relative; z-index: 1; flex-shrink: 0; }
 .navbar__notif-btn {
   width: 36px; height: 36px; border-radius: 10px;
   background: rgba(255, 255, 255, 0.09);
@@ -77,6 +80,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px; padding: 5px 13px 5px 5px;
   cursor: pointer; z-index: 1; transition: background 0.15s;
+  min-width: 0; flex-shrink: 1;
 }
 .navbar__profile:hover { background: rgba(255, 255, 255, 0.14); }
 .navbar__avatar {
@@ -85,6 +89,32 @@
   display: flex; align-items: center; justify-content: center;
   font-family: 'Urbanist', sans-serif;
   font-size: 11px; font-weight: 700; color: #0a1f0a;
+  flex-shrink: 0;
 }
-.navbar__profile-name { color: #ffffff; font-size: 12px; font-weight: 600; line-height: 1.25; }
-.navbar__profile-id   { color: rgba(200, 168, 37, 0.62); font-size: 9.5px; letter-spacing: 0.3px; }
+.navbar__profile-name {
+  color: #ffffff; font-size: 12px; font-weight: 600; line-height: 1.25;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 140px;
+}
+.navbar__profile-id { color: rgba(200, 168, 37, 0.62); font-size: 9.5px; letter-spacing: 0.3px; white-space: nowrap; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .navbar               { padding: 0 12px; gap: 8px; }
+  .navbar__search       { display: none; }
+  .navbar__profile-id   { display: none; }
+  .navbar__profile      { padding: 5px 10px 5px 5px; }
+  .navbar__profile-name { max-width: 90px; font-size: 11px; }
+  .navbar__brand-name   { font-size: 13px; }
+  .navbar__brand-sub    { display: none; }
+}
+
+@media (max-width: 480px) {
+  .navbar               { padding: 0 10px; gap: 6px; height: 56px; }
+  .navbar__logo         { width: 32px; height: 32px; }
+  .navbar__brand-name   { font-size: 12px; }
+  .navbar__profile-name { max-width: 70px; font-size: 10.5px; }
+  .navbar__notif-btn    { width: 32px; height: 32px; }
+  .navbar__avatar       { width: 26px; height: 26px; font-size: 9px; border-radius: 7px; }
+  .sidebar-overlay      { top: 56px; }
+}

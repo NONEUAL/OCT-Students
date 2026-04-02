@@ -1,11 +1,12 @@
 .schedule__table-wrap {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .schedule__table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 780px;
+  min-width: 680px;
 }
 
 /* ── Header ── */
@@ -97,9 +98,17 @@
   color: #1a3a1a;
 }
 
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .schedule__table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .schedule__table { font-size: 11px; }
+  .schedule__table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+  .schedule__table { font-size: 11px; min-width: 600px; }
   .schedule__table thead th,
   .schedule__table tbody td { padding: 10px 10px; }
+}
+
+@media (max-width: 480px) {
+  .schedule__table { font-size: 10.5px; min-width: 560px; }
+  .schedule__table thead th,
+  .schedule__table tbody td { padding: 8px 8px; }
+  .schedule__footer { font-size: 11px; padding: 10px 12px; }
 }

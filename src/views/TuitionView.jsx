@@ -28,42 +28,42 @@ export default function TuitionView() {
           <div className="card tuition__history-card">
             <div className="tuition__section-title">Payment History</div>
 
-            {/* Table */}
             {PAYMENTS.length === 0 ? (
               <div className="tuition__empty">No payment records yet.</div>
             ) : (
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    {["Date", "Description", "Method", "Reference", "Amount"].map(h => (
-                      <th key={h}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {PAYMENTS.map((p, i) => {
-                    const mc = METHOD_COLORS[p.method] ?? { bg: "#f0faf2", color: "#1a3a1a" };
-                    return (
-                      <tr key={i}>
-                        <td style={{ whiteSpace: "nowrap", color: COLORS.muted }}>{p.date}</td>
-                        <td style={{ fontWeight: 500 }}>{p.desc}</td>
-                        <td>
-                          <span style={{ fontSize: 10, fontWeight: 700, background: mc.bg, color: mc.color, padding: "3px 9px", borderRadius: 7 }}>
-                            {p.method}
-                          </span>
-                        </td>
-                        <td style={{ fontFamily: "monospace", fontSize: 11.5, color: COLORS.subtle }}>{p.ref}</td>
-                        <td style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, color: COLORS.g800 }}>
-                          ₱{p.amount.toLocaleString()}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              <div className="tuition__table-wrap">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      {["Date", "Description", "Method", "Reference", "Amount"].map(h => (
+                        <th key={h}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {PAYMENTS.map((p, i) => {
+                      const mc = METHOD_COLORS[p.method] ?? { bg: "#f0faf2", color: "#1a3a1a" };
+                      return (
+                        <tr key={i}>
+                          <td style={{ whiteSpace: "nowrap", color: COLORS.muted }}>{p.date}</td>
+                          <td style={{ fontWeight: 500 }}>{p.desc}</td>
+                          <td>
+                            <span style={{ fontSize: 10, fontWeight: 700, background: mc.bg, color: mc.color, padding: "3px 9px", borderRadius: 7 }}>
+                              {p.method}
+                            </span>
+                          </td>
+                          <td style={{ fontFamily: "monospace", fontSize: 11.5, color: COLORS.subtle }}>{p.ref}</td>
+                          <td style={{ fontFamily: "'Urbanist', sans-serif", fontWeight: 700, color: COLORS.g800, whiteSpace: "nowrap" }}>
+                            ₱{p.amount.toLocaleString()}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             )}
 
-            {/* Summary below table */}
             <div className="tuition__history-summary">
               <div className="tuition__summary-row">
                 <span className="tuition__summary-label">Total Paid</span>
@@ -78,7 +78,6 @@ export default function TuitionView() {
                 </span>
               </div>
 
-              {/* Status */}
               <div className={`tuition__status ${cleared ? "tuition__status--cleared" : "tuition__status--due"}`}>
                 {cleared
                   ? <><CheckCircle size={14} /> Account cleared — no outstanding balance.</>
@@ -103,7 +102,6 @@ export default function TuitionView() {
             ))}
           </div>
 
-          {/* Total inline — no box */}
           <div className="tuition__breakdown-total">
             <span>Total</span>
             <span>₱{TUITION_SUMMARY.totalFee.toLocaleString()}</span>

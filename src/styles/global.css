@@ -136,14 +136,22 @@ body {
   .dashboard__grid   { grid-template-columns: 1fr; }
   .profile__layout   { grid-template-columns: 1fr; }
 }
+
 @media (max-width: 768px) {
-  .app-main          { padding: 16px; }
+  .app-main          { padding: 14px 12px; }
   .data-table        { font-size: 11px; }
   .data-table thead th,
   .data-table tbody td { padding: 9px 10px; }
   .navbar__search    { display: none; }
   .navbar__profile-id{ display: none; }
+  .card              { border-radius: 12px; }
 }
+
 @media (max-width: 480px) {
+  .app-main            { padding: 12px 10px; }
+  .data-table thead th,
+  .data-table tbody td { padding: 7px 8px; font-size: 10.5px; }
+  .card                { border-radius: 10px; }
+  .btn-primary, .btn-ghost { padding: 8px 14px; font-size: 11.5px; }
   .dashboard__banner-actions { flex-direction: column; }
 }

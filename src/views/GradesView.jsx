@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BarChart2, ChevronDown } from "lucide-react";
-import { GRADES, COLORS } from "../constants/data.js";
+import { GRADES } from "../constants/data.js";
 import PageHeader from "../components/PageHeader.jsx";
 import "../styles/grades.css";
 
@@ -29,7 +29,6 @@ export default function GradesView() {
         subtitle={`${semester} · BSIT 212-A`}
       />
 
-      {/* Summary — inline, no boxes */}
       <div className="grades__summary-row">
         <div className="grades__summary-stat">
           <span className="grades__summary-label">GWA</span>
@@ -53,22 +52,18 @@ export default function GradesView() {
 
         <div className="grades__summary-spacer" />
 
-        {/* Semester selector */}
         <div className="dropdown-wrap">
           <select
             className="dropdown"
             value={semester}
             onChange={e => setSemester(e.target.value)}
           >
-            {SEMESTERS.map(s => (
-              <option key={s} value={s}>{s}</option>
-            ))}
+            {SEMESTERS.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
           <ChevronDown size={14} className="dropdown-icon" />
         </div>
       </div>
 
-      {/* Table */}
       <div className="card grades__table-wrap">
         <table className="data-table">
           <thead>
@@ -81,20 +76,17 @@ export default function GradesView() {
           <tbody>
             {GRADES.map((g, i) => {
               const avg    = ((g.prelim + g.midterm + g.finals) / 3).toFixed(1);
-              const passed = avg >= 75;
-              const avgCol =
-                avg >= 90 ? COLORS.g800 :
-                avg >= 75 ? COLORS.g700 : "#c62828";
+              const passed = parseFloat(avg) >= 75;
               return (
                 <tr key={i}>
                   <td><span className="grades__code-badge">{g.code}</span></td>
                   <td style={{ fontWeight: 500 }}>{g.subject}</td>
-                  <td style={{ color: COLORS.muted, textAlign: "center" }}>{g.units}</td>
-                  <td style={{ fontWeight: 600, textAlign: "center", color: g.prelim  >= 90 ? COLORS.g800 : COLORS.g700 }}>{g.prelim}</td>
-                  <td style={{ fontWeight: 600, textAlign: "center", color: g.midterm >= 90 ? COLORS.g800 : COLORS.g700 }}>{g.midterm}</td>
-                  <td style={{ fontWeight: 600, textAlign: "center", color: g.finals  >= 90 ? COLORS.g800 : COLORS.g700 }}>{g.finals}</td>
+                  <td style={{ textAlign: "center" }}>{g.units}</td>
+                  <td style={{ textAlign: "center" }}>{g.prelim}</td>
+                  <td style={{ textAlign: "center" }}>{g.midterm}</td>
+                  <td style={{ textAlign: "center" }}>{g.finals}</td>
                   <td style={{ textAlign: "center" }}>
-                    <span className="grades__avg-cell" style={{ color: avgCol }}>{avg}</span>
+                    <span className="grades__avg-cell">{avg}</span>
                   </td>
                   <td>
                     <span className={`grades__status-badge ${passed ? "grades__status-badge--passing" : "grades__status-badge--failed"}`}>

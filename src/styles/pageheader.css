@@ -18,3 +18,11 @@
   margin-top: 5px;
   margin-left: 46px;
 }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .page-header           { margin-bottom: 16px; }
+  .page-header__title    { font-size: 18px; }
+  .page-header__icon-wrap { width: 32px; height: 32px; border-radius: 9px; }
+  .page-header__subtitle { font-size: 11.5px; margin-left: 42px; margin-top: 3px; }
+}

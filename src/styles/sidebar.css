@@ -94,7 +94,7 @@
 }
 .sidebar__footer-dot { width: 6px; height: 6px; border-radius: 50%; background: #c8e6c9; }
 
-/* ── Responsive ── */
+/* ── Responsive — mobile: always full-width, slide in/out ── */
 @media (max-width: 768px) {
   .sidebar {
     position: fixed; top: 62px; left: 0; bottom: 0;
@@ -104,4 +104,8 @@
     transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .sidebar--collapsed { transform: translateX(-100%); width: 228px !important; }
+}
+
+@media (max-width: 480px) {
+  .sidebar { top: 56px; width: 80vw !important; max-width: 280px; }
 }

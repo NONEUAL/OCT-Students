@@ -13,7 +13,7 @@
 .dashboard__banner-eyebrow  { color: rgba(200,168,37,0.78); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 7px; font-weight: 600; }
 .dashboard__banner-title    { font-family: 'Urbanist', sans-serif; color: #fff; font-size: 23px; font-weight: 700; letter-spacing: -0.2px; }
 .dashboard__banner-sub      { color: rgba(255,255,255,0.52); font-size: 12.5px; margin-top: 6px; max-width: 420px; line-height: 1.55; }
-.dashboard__banner-actions  { display: flex; gap: 10px; margin-top: 16px; }
+.dashboard__banner-actions  { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
 
 /* ── Two-col grid ── */
 .dashboard__grid {
@@ -50,17 +50,18 @@
   padding: 3px 6px;
   border-radius: 6px;
   transition: background 0.15s;
+  white-space: nowrap;
 }
 .section-card-link:hover { background: #e8f5e9; }
 
 /* ── Grades table on dashboard ── */
 .dashboard__grades-table { width: 100%; border-collapse: collapse; }
-.dashboard__grades-table thead tr         { background: linear-gradient(100deg, #0a1f0a, #2d6a35); }
-.dashboard__grades-table thead th         { padding: 10px 12px; text-align: left; color: #fff; font-size: 10.5px; font-weight: 600; letter-spacing: 0.4px; }
+.dashboard__grades-table thead tr { background: linear-gradient(100deg, #0a1f0a, #2d6a35); }
+.dashboard__grades-table thead th { padding: 10px 12px; text-align: left; color: #fff; font-size: 10.5px; font-weight: 600; letter-spacing: 0.4px; }
 .dashboard__grades-table tbody tr:nth-child(even) { background: #f4fbf5; }
 .dashboard__grades-table tbody tr:nth-child(odd)  { background: #fff; }
-.dashboard__grades-table tbody td         { padding: 9px 12px; border-bottom: 1px solid #e8f5e9; font-size: 12px; color: #0d1f0d; }
-.dashboard__grades-table tbody tr:last-child td   { border-bottom: none; }
+.dashboard__grades-table tbody td { padding: 9px 12px; border-bottom: 1px solid #e8f5e9; font-size: 12px; color: #0d1f0d; }
+.dashboard__grades-table tbody tr:last-child td { border-bottom: none; }
 
 .dash-grade-code {
   font-size: 10px; font-weight: 700; color: #2d6a35;
@@ -73,34 +74,37 @@
 }
 .dash-grade-status--pass { background: #e8f5e9; color: #1a3a1a; }
 .dash-grade-status--fail { background: #fdecea; color: #b71c1c; }
+.dashboard__grades-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
-/* ── Calendar card ── */
-.cal-card { padding: 18px 18px 16px; }
+/* ────────────────────────────────────────────
+   COMPACT CALENDAR
+──────────────────────────────────────────── */
+.cal-card {
+  padding: 14px 14px 12px;
+}
 
 .cal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
+.cal-month-year { display: flex; align-items: baseline; gap: 5px; }
 .cal-month {
   font-family: 'Urbanist', sans-serif;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: #1a3a1a;
 }
 .cal-year {
-  font-size: 11.5px;
+  font-size: 11px;
   color: #7aaa80;
   font-weight: 500;
 }
-.cal-nav {
-  display: flex;
-  gap: 4px;
-}
+.cal-nav { display: flex; gap: 3px; }
 .cal-nav-btn {
-  width: 26px; height: 26px;
-  border-radius: 7px;
+  width: 22px; height: 22px;
+  border-radius: 6px;
   border: 1.5px solid #c8e6c9;
   background: none;
   cursor: pointer;
@@ -112,27 +116,27 @@
 }
 .cal-nav-btn:hover { background: #e8f5e9; border-color: #2d6a35; }
 
-/* Day-of-week labels */
+/* Day-of-week */
 .cal-dow {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 .cal-dow-cell {
   text-align: center;
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 700;
   color: #7aaa80;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
 }
 
-/* Day grid */
+/* Day grid — tighter */
 .cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+  gap: 1px;
 }
 .cal-day {
   aspect-ratio: 1;
@@ -140,105 +144,119 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
-  position: relative;
-  cursor: default;
+  border-radius: 6px;
 }
 .cal-day-num {
-  font-size: 11.5px;
+  font-size: 10px;
   font-weight: 500;
   color: #1a3a1a;
   line-height: 1;
 }
-.cal-day--empty .cal-day-num  { color: transparent; }
+.cal-day--empty { opacity: 0; }
 .cal-day--today               { background: #1a3a1a; }
 .cal-day--today .cal-day-num  { color: #fff; font-weight: 700; }
 .cal-day--sunday .cal-day-num { color: #c62828; }
 .cal-day--sunday.cal-day--today .cal-day-num { color: #fff; }
 
-/* Event dot */
+/* Tiny event dot */
 .cal-dot {
-  width: 5px;
-  height: 5px;
+  width: 3px; height: 3px;
   border-radius: 50%;
-  margin-top: 2px;
+  margin-top: 1px;
   flex-shrink: 0;
 }
 .cal-dot--exam    { background: #c62828; }
 .cal-dot--holiday { background: #c8a825; }
 .cal-dot--event   { background: #2d6a35; }
 
-/* ── Legend ── */
+/* Compact legend */
 .cal-legend {
   display: flex;
-  gap: 12px;
-  margin-top: 12px;
-  padding-top: 10px;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 8px;
   border-top: 1px solid #e8f5e9;
   flex-wrap: wrap;
 }
 .cal-legend-item {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 10px;
+  gap: 4px;
+  font-size: 9.5px;
   color: #3a5c3a;
   font-weight: 500;
 }
-.cal-legend-dot {
-  width: 7px; height: 7px; border-radius: 50%;
+.cal-legend-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+/* Upcoming section */
+.cal-upcoming-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #7aaa80;
+  margin: 10px 0 6px;
 }
 
-/* ── Upcoming events list ── */
-.cal-events {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+.cal-events { display: flex; flex-direction: column; gap: 4px; }
+
 .cal-event-row {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 7px 10px;
-  border-radius: 9px;
+  gap: 7px;
+  padding: 5px 8px;
+  border-radius: 7px;
   background: #f4fbf5;
 }
 .cal-event-date {
-  font-family: 'Urbanist', sans-serif;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 700;
   color: #1a3a1a;
-  min-width: 24px;
-  text-align: center;
-  line-height: 1;
+  white-space: nowrap;
+  min-width: 44px;
 }
 .cal-event-label {
-  font-size: 11.5px;
+  font-size: 10.5px;
   font-weight: 500;
   color: #0d1f0d;
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .cal-event-tag {
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
-  padding: 2px 7px;
+  letter-spacing: 0.3px;
+  padding: 2px 6px;
   border-radius: 5px;
+  flex-shrink: 0;
 }
 .cal-event-tag--exam    { background: #fdecea; color: #b71c1c; }
 .cal-event-tag--holiday { background: #fff3e0; color: #7a4a00; }
 .cal-event-tag--event   { background: #e8f5e9; color: #1a3a1a; }
 
 /* ── Responsive ── */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .dashboard__grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .dashboard__banner       { padding: 20px 18px; border-radius: 14px; }
+  .dashboard__banner       { padding: 20px 18px; border-radius: 14px; margin-bottom: 16px; }
   .dashboard__banner-title { font-size: 18px; }
+  .dashboard__banner-sub   { font-size: 11.5px; }
+  .dashboard__grades-table thead th,
+  .dashboard__grades-table tbody td { padding: 8px 10px; font-size: 11px; }
 }
 @media (max-width: 480px) {
-  .dashboard__banner-actions { flex-direction: column; }
+  .dashboard__banner         { padding: 16px 14px; border-radius: 12px; margin-bottom: 12px; }
+  .dashboard__banner-title   { font-size: 16px; }
+  .dashboard__banner-eyebrow { font-size: 9px; }
+  .dashboard__banner-sub     { font-size: 11px; margin-top: 4px; }
+  .dashboard__banner-actions { gap: 8px; margin-top: 12px; }
+  .dashboard__grid           { gap: 12px; }
+  .dashboard__grades-table thead th,
+  .dashboard__grades-table tbody td { padding: 7px 8px; font-size: 10.5px; }
+  .dash-col-hide             { display: none; }
 }

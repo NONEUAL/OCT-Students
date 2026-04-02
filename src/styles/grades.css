@@ -1,4 +1,4 @@
-/* ── Summary row — no boxes, just inline stats ── */
+/* ── Summary row ── */
 .grades__summary-row {
   display: flex;
   align-items: center;
@@ -7,79 +7,62 @@
   padding: 0 4px;
   flex-wrap: wrap;
 }
-.grades__summary-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+.grades__summary-stat { display: flex; flex-direction: column; gap: 2px; }
 .grades__summary-label {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: #7aaa80;
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.2px; color: #7aaa80;
 }
 .grades__summary-value {
   font-family: 'Urbanist', sans-serif;
-  font-size: 28px;
-  font-weight: 800;
-  color: #1a3a1a;
-  letter-spacing: -1px;
-  line-height: 1;
+  font-size: 28px; font-weight: 800;
+  color: #1a3a1a; letter-spacing: -1px; line-height: 1;
 }
 .grades__summary-badge {
-  display: inline-block;
-  font-size: 9.5px;
-  font-weight: 700;
-  background: #e8f5e9;
-  color: #1a3a1a;
-  padding: 3px 10px;
-  border-radius: 7px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin-top: 4px;
+  display: inline-block; font-size: 9.5px; font-weight: 700;
+  background: #e8f5e9; color: #1a3a1a;
+  padding: 3px 10px; border-radius: 7px;
+  letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px;
 }
-.grades__summary-divider {
-  width: 1px;
-  height: 36px;
-  background: #c8e6c9;
-  flex-shrink: 0;
-}
-.grades__summary-spacer { flex: 1; }
+.grades__summary-divider { width: 1px; height: 36px; background: #c8e6c9; flex-shrink: 0; }
+.grades__summary-spacer  { flex: 1; min-width: 0; }
 
 /* ── Table ── */
-.grades__table-wrap { overflow-x: auto; }
+.grades__table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
+/* Code badge — same style as schedule */
 .grades__code-badge {
-  font-size: 10px;
-  font-weight: 700;
-  color: #2d6a35;
-  background: #e8f5e9;
-  padding: 3px 8px;
-  border-radius: 6px;
-  letter-spacing: 0.3px;
-  white-space: nowrap;
+  font-size: 10px; font-weight: 700;
+  color: #2d6a35; background: #e8f5e9;
+  padding: 3px 8px; border-radius: 6px;
+  letter-spacing: 0.3px; white-space: nowrap;
 }
-.grades__avg-cell {
-  font-family: 'Urbanist', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-}
+
+/* Status badge — only two states, no per-cell color */
 .grades__status-badge {
-  font-size: 9.5px;
-  padding: 3px 10px;
-  border-radius: 7px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  font-size: 9.5px; padding: 3px 10px;
+  border-radius: 7px; font-weight: 700;
+  letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap;
 }
 .grades__status-badge--passing { background: #e8f5e9; color: #1a3a1a; }
 .grades__status-badge--failed  { background: #fdecea; color: #b71c1c; }
 
+/* Average — plain bold text, no colour */
+.grades__avg-cell {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 13px; font-weight: 700; color: #1a3a1a;
+}
+
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .grades__summary-row   { gap: 16px; }
+  .grades__summary-row   { gap: 16px; margin-bottom: 16px; }
   .grades__summary-value { font-size: 22px; }
-  .data-table            { font-size: 11px; }
-  .data-table thead th,
-  .data-table tbody td   { padding: 9px 10px; }
+  .grades__summary-divider { height: 28px; }
+}
+@media (max-width: 480px) {
+  .grades__summary-row    { gap: 12px; }
+  .grades__summary-value  { font-size: 20px; }
+  .grades__summary-label  { font-size: 9px; }
+  .grades__summary-spacer { display: none; }
+  .dropdown-wrap          { width: 100%; }
+  .dropdown               { width: 100%; }
 }

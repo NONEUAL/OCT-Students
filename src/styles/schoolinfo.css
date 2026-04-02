@@ -12,6 +12,9 @@
   box-shadow: 0 24px 64px rgba(10,31,10,0.22);
   overflow: hidden;
   animation: modalIn 0.22s cubic-bezier(0.22,0.68,0,1.2);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
 @keyframes modalIn {
   from { opacity: 0; transform: scale(0.92) translateY(12px); }
@@ -22,6 +25,7 @@
   padding: 20px 20px 18px;
   display: flex; align-items: center; gap: 12px;
   position: relative; overflow: hidden;
+  flex-shrink: 0;
 }
 .modal-header__orb { position: absolute; right: -30px; top: -30px; width: 120px; height: 120px; border-radius: 50%; background: rgba(200,168,37,0.08); pointer-events: none; }
 .modal-header__logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(200,168,37,0.35); flex-shrink: 0; z-index: 1; }
@@ -35,13 +39,13 @@
   transition: background 0.15s; flex-shrink: 0;
 }
 .modal-close:hover { background: rgba(255,255,255,0.2); }
-.modal-body { padding: 16px 20px; }
+.modal-body { padding: 16px 20px; overflow-y: auto; flex: 1; }
 .modal-row  { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #e8f5e9; }
 .modal-row:last-child { border-bottom: none; }
 .modal-row__icon  { width: 30px; height: 30px; border-radius: 8px; background: #e8f5e9; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #2d6a35; margin-top: 1px; }
 .modal-row__label { font-size: 10px; font-weight: 700; color: #7aaa80; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-.modal-row__value { font-size: 13px; color: #0d1f0d; font-weight: 500; line-height: 1.4; }
-.modal-footer { padding: 12px 20px 16px; display: flex; justify-content: flex-end; }
+.modal-row__value { font-size: 13px; color: #0d1f0d; font-weight: 500; line-height: 1.4; word-break: break-word; }
+.modal-footer { padding: 12px 20px 16px; display: flex; justify-content: flex-end; flex-shrink: 0; border-top: 1px solid #e8f5e9; }
 .modal-footer__btn {
   background: linear-gradient(100deg,#1a3a1a,#2d6a35);
   color: #fff; border: none; border-radius: 9px;
@@ -50,3 +54,13 @@
   cursor: pointer; transition: opacity 0.15s;
 }
 .modal-footer__btn:hover { opacity: 0.88; }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .modal-overlay { padding: 12px; align-items: flex-end; }
+  .modal-card    { border-radius: 18px 18px 0 0; max-height: 88vh; max-width: 100%; }
+  .modal-header  { padding: 16px 16px 14px; }
+  .modal-header__name { font-size: 13px; }
+  .modal-body    { padding: 12px 16px; }
+  .modal-footer  { padding: 10px 16px 20px; }
+}
