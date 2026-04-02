@@ -1,5 +1,5 @@
-import { ArrowRight, Clock } from "lucide-react";
-import { COLORS, SCHEDULE, GRADES } from "../constants/data.js";
+import { ArrowRight, BarChart2 } from "lucide-react";
+import { COLORS, GRADES } from "../constants/data.js";
 import "../styles/dashboard.css";
 
 export default function DashboardView({ onNavigate, user }) {
@@ -10,14 +10,14 @@ export default function DashboardView({ onNavigate, user }) {
   }, 0);
   const gwa = (weightedSum / totalUnits).toFixed(2);
 
-  const firstName = user?.fullName
-    ? user.fullName.split(",")[1]?.trim().split(" ")[0] ?? "Student"
-    : "Student";
-
   const honorLabel =
     gwa >= 90 ? "Highest Honors" :
     gwa >= 85 ? "High Honors"    :
     gwa >= 80 ? "Honors"         : "Passing";
+
+  const firstName = user?.fullName
+    ? user.fullName.split(",")[1]?.trim().split(" ")[0] ?? "Student"
+    : "Student";
 
   return (
     <div>
@@ -34,11 +34,11 @@ export default function DashboardView({ onNavigate, user }) {
             {totalUnits} units enrolled
           </p>
           <div className="dashboard__banner-actions">
-            <button className="btn btn-primary" onClick={() => onNavigate("schedule")}>
-              View Schedule <ArrowRight size={13} />
+            <button className="btn btn-primary" onClick={() => onNavigate("grades")}>
+              View Grades <ArrowRight size={13} />
             </button>
-            <button className="btn btn-ghost" onClick={() => onNavigate("grades")}>
-              View Grades
+            <button className="btn btn-ghost" onClick={() => onNavigate("schedule")}>
+              View Schedule
             </button>
           </div>
         </div>
@@ -47,37 +47,63 @@ export default function DashboardView({ onNavigate, user }) {
       {/* Two-col grid */}
       <div className="dashboard__grid">
 
-        {/* Class Schedule — compact list */}
+        {/* Grades table */}
         <div className="card" style={{ padding: "18px 20px" }}>
           <div className="section-card-header">
-            <Clock size={15} color={COLORS.g800} strokeWidth={2} />
-            <span className="section-card-title">Class Schedule</span>
+            <BarChart2 size={15} color={COLORS.g800} strokeWidth={2} />
+            <span className="section-card-title">Grades</span>
             <button
               className="section-card-link"
-              onClick={() => onNavigate("schedule")}
+              onClick={() => onNavigate("grades")}
             >
-              See all <ArrowRight size={11} />
+              Full view <ArrowRight size={11} />
             </button>
           </div>
 
-          {SCHEDULE.map((s, i) => (
-            <div key={i} className="sched-row">
-              <div className="sched-bar" style={{ background: s.color }} />
-              <div className="sched-info">
-                <div className="sched-subject">{s.subject}</div>
-                <div className="sched-meta">{s.room}&nbsp;·&nbsp;{s.prof}</div>
-              </div>
-              <div className="sched-right">
-                <span className="sched-time">{s.time}</span>
-                <span className="sched-day">{s.day}</span>
-              </div>
-            </div>
-          ))}
+          <table className="dashboard__grades-table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Subject</th>
+                <th style={{ textAlign: "center" }}>Prelim</th>
+                <th style={{ textAlign: "center" }}>Midterm</th>
+                <th style={{ textAlign: "center" }}>Finals</th>
+                <th style={{ textAlign: "center" }}>Avg</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {GRADES.map((g, i) => {
+                const avg    = ((g.prelim + g.midterm + g.finals) / 3).toFixed(1);
+                const passed = avg >= 75;
+                const avgCol =
+                  avg >= 90 ? COLORS.g800 :
+                  avg >= 75 ? COLORS.g700 : "#c62828";
+                return (
+                  <tr key={i}>
+                    <td><span className="dash-grade-code">{g.code}</span></td>
+                    <td style={{ fontWeight: 500, fontSize: 11.5 }}>{g.subject}</td>
+                    <td style={{ textAlign: "center", color: COLORS.muted }}>{g.prelim}</td>
+                    <td style={{ textAlign: "center", color: COLORS.muted }}>{g.midterm}</td>
+                    <td style={{ textAlign: "center", color: COLORS.muted }}>{g.finals}</td>
+                    <td style={{ textAlign: "center" }}>
+                      <span className="dash-grade-avg" style={{ color: avgCol }}>{avg}</span>
+                    </td>
+                    <td>
+                      <span className={`dash-grade-status ${passed ? "dash-grade-status--pass" : "dash-grade-status--fail"}`}>
+                        {passed ? "Pass" : "Fail"}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
 
-        {/* GWA card */}
+        {/* GWA card — smaller */}
         <div className="card dashboard__gwa-card">
-          <div className="dashboard__gwa-eyebrow">General Weighted Average</div>
+          <div className="dashboard__gwa-eyebrow">GWA</div>
           <div className="dashboard__gwa-num">{gwa}</div>
           <span className="dashboard__gwa-badge">{honorLabel}</span>
           <div className="dashboard__gwa-sub">
@@ -87,7 +113,7 @@ export default function DashboardView({ onNavigate, user }) {
             className="dashboard__gwa-btn"
             onClick={() => onNavigate("grades")}
           >
-            View Full Grades <ArrowRight size={12} />
+            Full Grades <ArrowRight size={12} />
           </button>
         </div>
 

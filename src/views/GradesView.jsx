@@ -17,9 +17,9 @@ export default function GradesView() {
   const gwa = (weightedSum / totalUnits).toFixed(2);
 
   const honorLabel =
-    gwa <= 1.5  ? "HIGHEST HONORS" :
-    gwa <= 1.75 ? "HIGH HONORS"    :
-    gwa <= 2.0  ? "HONORS"         : "PASSING";
+    gwa >= 90 ? "Highest Honors" :
+    gwa >= 85 ? "High Honors"    :
+    gwa >= 80 ? "Honors"         : "Passing";
 
   return (
     <div>
@@ -29,32 +29,42 @@ export default function GradesView() {
         subtitle={`${semester} · BSIT 212-A`}
       />
 
-      {/* GWA summary */}
+      {/* Summary — inline, no boxes */}
       <div className="grades__summary-row">
-        <div className="grades__gwa-card">
-          <div className="grades__gwa-label">General Weighted Average</div>
-          <div className="grades__gwa-value">{gwa}</div>
-          <span className="grades__gwa-badge">{honorLabel}</span>
+        <div className="grades__summary-stat">
+          <span className="grades__summary-label">GWA</span>
+          <span className="grades__summary-value">{gwa}</span>
+          <span className="grades__summary-badge">{honorLabel}</span>
         </div>
-        <div className="grades__gwa-card">
-          <div className="grades__gwa-label">Total Units</div>
-          <div className="grades__gwa-value">{totalUnits}</div>
-          <span className="grades__gwa-badge">{GRADES.length} Subjects</span>
+
+        <div className="grades__summary-divider" />
+
+        <div className="grades__summary-stat">
+          <span className="grades__summary-label">Total Units</span>
+          <span className="grades__summary-value">{totalUnits}</span>
         </div>
+
+        <div className="grades__summary-divider" />
+
+        <div className="grades__summary-stat">
+          <span className="grades__summary-label">Subjects</span>
+          <span className="grades__summary-value">{GRADES.length}</span>
+        </div>
+
+        <div className="grades__summary-spacer" />
+
         {/* Semester selector */}
-        <div style={{ marginLeft: "auto", alignSelf: "center" }}>
-          <div className="dropdown-wrap">
-            <select
-              className="dropdown"
-              value={semester}
-              onChange={e => setSemester(e.target.value)}
-            >
-              {SEMESTERS.map(s => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-            <ChevronDown size={14} className="dropdown-icon" />
-          </div>
+        <div className="dropdown-wrap">
+          <select
+            className="dropdown"
+            value={semester}
+            onChange={e => setSemester(e.target.value)}
+          >
+            {SEMESTERS.map(s => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+          <ChevronDown size={14} className="dropdown-icon" />
         </div>
       </div>
 
@@ -77,9 +87,7 @@ export default function GradesView() {
                 avg >= 75 ? COLORS.g700 : "#c62828";
               return (
                 <tr key={i}>
-                  <td>
-                    <span className="grades__code-badge">{g.code}</span>
-                  </td>
+                  <td><span className="grades__code-badge">{g.code}</span></td>
                   <td style={{ fontWeight: 500 }}>{g.subject}</td>
                   <td style={{ color: COLORS.muted, textAlign: "center" }}>{g.units}</td>
                   <td style={{ fontWeight: 600, textAlign: "center", color: g.prelim  >= 90 ? COLORS.g800 : COLORS.g700 }}>{g.prelim}</td>
@@ -90,7 +98,7 @@ export default function GradesView() {
                   </td>
                   <td>
                     <span className={`grades__status-badge ${passed ? "grades__status-badge--passing" : "grades__status-badge--failed"}`}>
-                      {passed ? "PASSING" : "FAILED"}
+                      {passed ? "Passing" : "Failed"}
                     </span>
                   </td>
                 </tr>

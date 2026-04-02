@@ -7,26 +7,37 @@
   position: relative;
   overflow: hidden;
 }
-.dashboard__banner-orb-1 {
-  position: absolute; right: -40px; top: -40px;
-  width: 200px; height: 200px; border-radius: 50%;
-  background: rgba(200,168,37,0.09); pointer-events: none;
+.dashboard__banner-orb-1 { position: absolute; right: -40px; top: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(200,168,37,0.09); pointer-events: none; }
+.dashboard__banner-orb-2 { position: absolute; right: 60px; bottom: -50px; width: 120px; height: 120px; border-radius: 50%; background: rgba(200,168,37,0.05); pointer-events: none; }
+.dashboard__banner-content { position: relative; z-index: 1; }
+.dashboard__banner-eyebrow {
+  color: rgba(200,168,37,0.78);
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  font-weight: 600;
 }
-.dashboard__banner-orb-2 {
-  position: absolute; right: 60px; bottom: -50px;
-  width: 120px; height: 120px; border-radius: 50%;
-  background: rgba(200,168,37,0.05); pointer-events: none;
+.dashboard__banner-title {
+  font-family: 'Urbanist', sans-serif;
+  color: #fff;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
 }
-.dashboard__banner-content  { position: relative; z-index: 1; }
-.dashboard__banner-eyebrow  { color: rgba(200,168,37,0.78); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 7px; font-weight: 600; }
-.dashboard__banner-title    { font-family: 'Syne', sans-serif; color: #fff; font-size: 23px; font-weight: 700; letter-spacing: -0.2px; }
-.dashboard__banner-sub      { color: rgba(255,255,255,0.52); font-size: 12.5px; margin-top: 6px; max-width: 420px; line-height: 1.55; }
-.dashboard__banner-actions  { display: flex; gap: 10px; margin-top: 16px; }
+.dashboard__banner-sub {
+  color: rgba(255,255,255,0.52);
+  font-size: 12.5px;
+  margin-top: 6px;
+  max-width: 420px;
+  line-height: 1.55;
+}
+.dashboard__banner-actions { display: flex; gap: 10px; margin-top: 16px; }
 
 /* ── Two-col grid ── */
 .dashboard__grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 1.8fr 1fr;
   gap: 16px;
 }
 
@@ -38,7 +49,7 @@
   margin-bottom: 14px;
 }
 .section-card-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Urbanist', sans-serif;
   font-size: 14px;
   font-weight: 700;
   color: #1a3a1a;
@@ -61,73 +72,61 @@
 }
 .section-card-link:hover { background: #e8f5e9; }
 
-/* ── Schedule rows ── */
-.sched-row {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding: 8px 0;
+/* ── Grades table on dashboard ── */
+.dashboard__grades-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.dashboard__grades-table thead tr { background: linear-gradient(100deg, #0a1f0a, #2d6a35); }
+.dashboard__grades-table thead th {
+  padding: 10px 12px;
+  text-align: left;
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+.dashboard__grades-table tbody tr:nth-child(even) { background: #f4fbf5; }
+.dashboard__grades-table tbody tr:nth-child(odd)  { background: #fff; }
+.dashboard__grades-table tbody td {
+  padding: 9px 12px;
   border-bottom: 1px solid #e8f5e9;
-}
-.sched-row:last-child  { border-bottom: none; padding-bottom: 0; }
-.sched-row:first-of-type { padding-top: 0; }
-
-.sched-bar {
-  width: 3px;
-  height: 34px;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-.sched-info    { flex: 1; min-width: 0; }
-.sched-subject {
   font-size: 12px;
-  font-weight: 600;
   color: #0d1f0d;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
-.sched-meta {
-  font-size: 10.5px;
-  color: #7aaa80;
-  margin-top: 1px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.sched-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 3px;
-  flex-shrink: 0;
-}
-.sched-time {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: #3a5c3a;
-  background: #f0faf2;
-  padding: 2px 7px;
-  border-radius: 6px;
-  white-space: nowrap;
-}
-.sched-day {
-  font-size: 9px;
+.dashboard__grades-table tbody tr:last-child td { border-bottom: none; }
+
+.dash-grade-code {
+  font-size: 10px;
   font-weight: 700;
   color: #2d6a35;
   background: #e8f5e9;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 5px;
-  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
+.dash-grade-avg {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+.dash-grade-status {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.dash-grade-status--pass { background: #e8f5e9; color: #1a3a1a; }
+.dash-grade-status--fail { background: #fdecea; color: #b71c1c; }
 
 /* ── GWA card ── */
 .dashboard__gwa-card {
-  padding: 24px 24px 22px;
+  padding: 22px 22px 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
 }
 .dashboard__gwa-eyebrow {
   font-size: 10px;
@@ -135,12 +134,12 @@
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: #7aaa80;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .dashboard__gwa-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 56px;
-  font-weight: 700;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
   color: #1a3a1a;
   letter-spacing: -3px;
   line-height: 1;
@@ -154,14 +153,14 @@
   letter-spacing: 0.8px;
   background: #e8f5e9;
   color: #1a3a1a;
-  padding: 4px 12px;
-  border-radius: 8px;
-  margin-bottom: 12px;
+  padding: 4px 11px;
+  border-radius: 7px;
+  margin-bottom: 10px;
 }
 .dashboard__gwa-sub {
-  font-size: 12px;
+  font-size: 11.5px;
   color: #7aaa80;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 .dashboard__gwa-btn {
   display: inline-flex;
@@ -171,12 +170,13 @@
   color: #fff;
   border: none;
   border-radius: 9px;
-  padding: 9px 16px;
+  padding: 9px 15px;
   font-size: 12px;
   font-weight: 600;
   font-family: 'Plus Jakarta Sans', sans-serif;
   cursor: pointer;
   transition: opacity 0.15s;
+  white-space: nowrap;
 }
 .dashboard__gwa-btn:hover { opacity: 0.88; }
 
@@ -185,8 +185,10 @@
   .dashboard__grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .dashboard__banner         { padding: 20px 18px; border-radius: 14px; }
-  .dashboard__banner-title   { font-size: 18px; }
+  .dashboard__banner       { padding: 20px 18px; border-radius: 14px; }
+  .dashboard__banner-title { font-size: 18px; }
+  .dashboard__gwa-num      { font-size: 40px; }
+}
+@media (max-width: 480px) {
   .dashboard__banner-actions { flex-direction: column; }
-  .dashboard__gwa-num        { font-size: 44px; }
 }
