@@ -28,7 +28,7 @@
   flex-shrink: 0;
 }
 .modal-header__orb { position: absolute; right: -30px; top: -30px; width: 120px; height: 120px; border-radius: 50%; background: rgba(200,168,37,0.08); pointer-events: none; }
-.modal-header__logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(200,168,37,0.35); flex-shrink: 0; z-index: 1; }
+.modal-header__logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0; z-index: 1; }
 .modal-header__name { font-family: 'Urbanist', sans-serif; color: #fff; font-size: 14px; font-weight: 700; z-index: 1; }
 .modal-header__sub  { color: rgba(200,168,37,0.7); font-size: 10px; letter-spacing: 0.5px; margin-top: 2px; z-index: 1; }
 .modal-close {
