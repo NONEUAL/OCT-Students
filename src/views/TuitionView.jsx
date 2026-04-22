@@ -1,136 +1,117 @@
-import { useState } from "react";
-import { BarChart2, ChevronDown } from "lucide-react";
-import { GRADES } from "../constants/data.js";
+import { Receipt, CheckCircle, AlertCircle } from "lucide-react";
+import { TUITION_SUMMARY, PAYMENTS, COLORS } from "../constants/data.js";
 import PageHeader from "../components/PageHeader.jsx";
-import "../styles/grades.css";
+import "../styles/tuition.css";
 
-const SEMESTERS = ["2nd Semester AY 2025–2026", "1st Semester AY 2025–2026"];
+const METHOD_COLORS = {
+  Cash:            { bg: "#e8f5e9", color: "#1a3a1a" },
+  GCash:           { bg: "#e3f2fd", color: "#0d47a1" },
+  "Bank Transfer": { bg: "#fff3e0", color: "#7a4a00" },
+};
 
-export default function GradesView() {
-  const [semester, setSemester] = useState(SEMESTERS[0]);
-
-  const totalUnits  = GRADES.reduce((s, g) => s + g.units, 0);
-  const weightedSum = GRADES.reduce((s, g) => {
-    const avg = (g.prelim + g.midterm + g.finals) / 3;
-    return s + avg * g.units;
-  }, 0);
-  const gwa = (weightedSum / totalUnits).toFixed(2);
-
-  const honorLabel =
-    gwa >= 90 ? "Highest Honors" :
-    gwa >= 85 ? "High Honors"    :
-    gwa >= 80 ? "Honors"         : "Passing";
+export default function TuitionView() {
+  const balance = TUITION_SUMMARY.totalFee - TUITION_SUMMARY.totalPaid;
+  const cleared = balance <= 0;
 
   return (
     <div>
       <PageHeader
-        Icon={BarChart2}
-        title="Grades"
-        subtitle={`${semester} · BSIT 212-A`}
+        Icon={Receipt}
+        title="Tuition & Payments"
+        subtitle={TUITION_SUMMARY.semester}
       />
 
-      {/* Summary bar */}
-      <div className="grades__summary-row">
-        <div className="grades__summary-stat">
-          <span className="grades__summary-label">GWA</span>
-          <span className="grades__summary-value">{gwa}</span>
-          <span className="grades__summary-badge">{honorLabel}</span>
-        </div>
-        <div className="grades__summary-divider" />
-        <div className="grades__summary-stat">
-          <span className="grades__summary-label">Total Units</span>
-          <span className="grades__summary-value">{totalUnits}</span>
-        </div>
-        <div className="grades__summary-divider" />
-        <div className="grades__summary-stat">
-          <span className="grades__summary-label">Subjects</span>
-          <span className="grades__summary-value">{GRADES.length}</span>
-        </div>
-        <div className="grades__summary-spacer" />
-        <div className="dropdown-wrap">
-          <select
-            className="dropdown"
-            value={semester}
-            onChange={e => setSemester(e.target.value)}
-          >
-            {SEMESTERS.map(s => <option key={s} value={s}>{s}</option>)}
-          </select>
-          <ChevronDown size={14} className="dropdown-icon" />
-        </div>
-      </div>
+      <div className="tuition__layout">
 
-      {/* Desktop table */}
-      <div className="grades__table-wrap card">
-        <table className="data-table grades__desktop-table">
-          <thead>
-            <tr>
-              {["Code", "Subject", "Units", "Prelim", "Midterm", "Finals", "Average", "Status"].map(h => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {GRADES.map((g, i) => {
-              const avg    = ((g.prelim + g.midterm + g.finals) / 3).toFixed(1);
-              const passed = parseFloat(avg) >= 75;
-              return (
-                <tr key={i}>
-                  <td><span className="grades__code-badge">{g.code}</span></td>
-                  <td style={{ fontWeight: 500 }}>{g.subject}</td>
-                  <td style={{ textAlign: "center" }}>{g.units}</td>
-                  <td style={{ textAlign: "center" }}>{g.prelim}</td>
-                  <td style={{ textAlign: "center" }}>{g.midterm}</td>
-                  <td style={{ textAlign: "center" }}>{g.finals}</td>
-                  <td style={{ textAlign: "center" }}>
-                    <span className="grades__avg-cell">{avg}</span>
-                  </td>
-                  <td>
-                    <span className={`grades__status-badge ${passed ? "grades__status-badge--passing" : "grades__status-badge--failed"}`}>
-                      {passed ? "Passing" : "Failed"}
-                    </span>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+        {/* LEFT — Payment History */}
+        <div>
+          <div className="card tuition__history-card">
+            <div className="tuition__section-title">Payment History</div>
 
-      {/* Mobile cards */}
-      <div className="grades__mobile-cards">
-        {GRADES.map((g, i) => {
-          const avg    = ((g.prelim + g.midterm + g.finals) / 3).toFixed(1);
-          const passed = parseFloat(avg) >= 75;
-          return (
-            <div key={i} className="grades__mobile-card card">
-              <div className="grades__mobile-card__header">
-                <span className="grades__code-badge">{g.code}</span>
-                <span className={`grades__status-badge ${passed ? "grades__status-badge--passing" : "grades__status-badge--failed"}`}>
-                  {passed ? "Passing" : "Failed"}
+            {PAYMENTS.length === 0 ? (
+              <div className="tuition__empty">No payment records yet.</div>
+            ) : (
+              <div className="tuition__table-wrap">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      {["Date", "Description", "Method", "Reference", "Amount"].map(h => (
+                        <th key={h}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {PAYMENTS.map((p, i) => {
+                      const mc = METHOD_COLORS[p.method] ?? { bg: "#f0faf2", color: "#1a3a1a" };
+                      return (
+                        <tr key={i}>
+                          <td style={{ whiteSpace: "nowrap", color: COLORS.muted }}>{p.date}</td>
+                          <td style={{ fontWeight: 500 }}>{p.desc}</td>
+                          <td>
+                            <span style={{ fontSize: 10, fontWeight: 700, background: mc.bg, color: mc.color, padding: "3px 9px", borderRadius: 7 }}>
+                              {p.method}
+                            </span>
+                          </td>
+                          <td style={{ fontFamily: "monospace", fontSize: 11.5, color: COLORS.subtle }}>{p.ref}</td>
+                          <td style={{ fontFamily: "'Urbanist', sans-serif", fontWeight: 700, color: COLORS.g800, whiteSpace: "nowrap" }}>
+                            ₱{p.amount.toLocaleString()}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            <div className="tuition__history-summary">
+              <div className="tuition__summary-row">
+                <span className="tuition__summary-label">Total Paid</span>
+                <span className="tuition__summary-value" style={{ color: COLORS.g700 }}>
+                  ₱{TUITION_SUMMARY.totalPaid.toLocaleString()}
                 </span>
               </div>
-              <div className="grades__mobile-card__subject">{g.subject}</div>
-              <div className="grades__mobile-card__scores">
-                <div className="grades__mobile-score">
-                  <span className="grades__mobile-score__label">Prelim</span>
-                  <span className="grades__mobile-score__val">{g.prelim}</span>
-                </div>
-                <div className="grades__mobile-score">
-                  <span className="grades__mobile-score__label">Midterm</span>
-                  <span className="grades__mobile-score__val">{g.midterm}</span>
-                </div>
-                <div className="grades__mobile-score">
-                  <span className="grades__mobile-score__label">Finals</span>
-                  <span className="grades__mobile-score__val">{g.finals}</span>
-                </div>
-                <div className="grades__mobile-score grades__mobile-score--avg">
-                  <span className="grades__mobile-score__label">Average</span>
-                  <span className="grades__avg-cell">{avg}</span>
-                </div>
+              <div className="tuition__summary-row">
+                <span className="tuition__summary-label">Balance</span>
+                <span className="tuition__summary-value" style={{ color: balance > 0 ? "#c62828" : COLORS.g700 }}>
+                  ₱{balance.toLocaleString()}
+                </span>
+              </div>
+
+              <div className={`tuition__status ${cleared ? "tuition__status--cleared" : "tuition__status--due"}`}>
+                {cleared
+                  ? <><CheckCircle size={14} /> Account cleared — no outstanding balance.</>
+                  : <><AlertCircle size={14} /> Balance due on {TUITION_SUMMARY.dueDate}. Please settle at the Accounting Office.</>
+                }
               </div>
             </div>
-          );
-        })}
+          </div>
+        </div>
+
+        {/* RIGHT — Fee Breakdown */}
+        <div className="card tuition__breakdown-card">
+          <div className="tuition__section-title">Fee Breakdown</div>
+          <div className="tuition__breakdown-sub">{TUITION_SUMMARY.semester}</div>
+
+          <div className="tuition__breakdown-list">
+            {TUITION_SUMMARY.breakdown.map((item, i) => (
+              <div key={i} className="tuition__breakdown-row">
+                <span className="tuition__breakdown-label">{item.label}</span>
+                <span className="tuition__breakdown-amount">₱{item.amount.toLocaleString()}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="tuition__breakdown-total">
+            <span>Total</span>
+            <span>₱{TUITION_SUMMARY.totalFee.toLocaleString()}</span>
+          </div>
+
+          <div className="tuition__breakdown-note">
+            For official receipts, visit the Accounting Office.
+          </div>
+        </div>
+
       </div>
     </div>
   );
