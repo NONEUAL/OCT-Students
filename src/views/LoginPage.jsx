@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { User, Lock, Eye, EyeOff } from "lucide-react";
 import "../styles/auth.css";
 
-// ── Dummy accounts seeded on first load ──────────────────────────────────────
+// ── Dummy accounts
 const DUMMY_ACCOUNTS = [
   {
     fullName:  "VELASQUEZ, GABRIEL",

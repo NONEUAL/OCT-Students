@@ -14,13 +14,14 @@ export default function ProfileView({ user, onLogout }) {
   const [pwError, setPwError] = useState("");
 
   const togglePw = (k) => setShowPw(s => ({ ...s, [k]: !s[k] }));
+  const updatePw = (k, v) => { setPw(p => ({ ...p, [k]: v })); setPwError(""); setPwSaved(false); };
 
   const handleChangePw = (e) => {
     e.preventDefault();
     setPwError("");
-    if (!pw.current)           { setPwError("Enter your current password."); return; }
-    if (pw.newPw.length < 6)   { setPwError("New password must be at least 6 characters."); return; }
-    if (pw.newPw !== pw.confirm){ setPwError("Passwords do not match."); return; }
+    if (!pw.current)            { setPwError("Enter your current password."); return; }
+    if (pw.newPw.length < 6)    { setPwError("New password must be at least 6 characters."); return; }
+    if (pw.newPw !== pw.confirm) { setPwError("Passwords do not match."); return; }
 
     const users = JSON.parse(localStorage.getItem("oct_users") || "[]");
     const idx = users.findIndex(u => u.studentId === user.studentId);
@@ -37,24 +38,6 @@ export default function ProfileView({ user, onLogout }) {
     setPwSaved(true);
     setTimeout(() => setPwSaved(false), 3000);
   };
-
-  const PwField = ({ label, k }) => (
-    <div className="profile__field-wrap">
-      <label className="profile__field-label">{label}</label>
-      <div className="profile__pw-wrap">
-        <input
-          className="profile__pw-input"
-          type={showPw[k] ? "text" : "password"}
-          placeholder="••••••••"
-          value={pw[k]}
-          onChange={e => { setPw(p => ({ ...p, [k]: e.target.value })); setPwError(""); setPwSaved(false); }}
-        />
-        <button type="button" className="profile__pw-eye" onClick={() => togglePw(k)}>
-          {showPw[k] ? <EyeOff size={14} /> : <Eye size={14} />}
-        </button>
-      </div>
-    </div>
-  );
 
   return (
     <div>
@@ -129,17 +112,67 @@ export default function ProfileView({ user, onLogout }) {
             <div className="profile__sec-title">Change Password</div>
             {pwError && <div className="profile__error">{pwError}</div>}
             <form onSubmit={handleChangePw}>
-              <PwField label="Current Password" k="current" />
-              <div className="profile__field-row">
-                <PwField label="New Password" k="newPw" />
-                <PwField label="Confirm New Password" k="confirm" />
+
+              {/* Current password */}
+              <div className="profile__field-wrap">
+                <label className="profile__field-label">Current Password</label>
+                <div className="profile__pw-wrap">
+                  <input
+                    className="profile__pw-input"
+                    type={showPw.current ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={pw.current}
+                    onChange={e => updatePw("current", e.target.value)}
+                  />
+                  <button type="button" className="profile__pw-eye" onClick={() => togglePw("current")}>
+                    {showPw.current ? <EyeOff size={14} /> : <Eye size={14} />}
+                  </button>
+                </div>
               </div>
+
+              <div className="profile__field-row">
+                {/* New password */}
+                <div className="profile__field-wrap">
+                  <label className="profile__field-label">New Password</label>
+                  <div className="profile__pw-wrap">
+                    <input
+                      className="profile__pw-input"
+                      type={showPw.newPw ? "text" : "password"}
+                      placeholder="••••••••"
+                      value={pw.newPw}
+                      onChange={e => updatePw("newPw", e.target.value)}
+                    />
+                    <button type="button" className="profile__pw-eye" onClick={() => togglePw("newPw")}>
+                      {showPw.newPw ? <EyeOff size={14} /> : <Eye size={14} />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Confirm password */}
+                <div className="profile__field-wrap">
+                  <label className="profile__field-label">Confirm New Password</label>
+                  <div className="profile__pw-wrap">
+                    <input
+                      className="profile__pw-input"
+                      type={showPw.confirm ? "text" : "password"}
+                      placeholder="••••••••"
+                      value={pw.confirm}
+                      onChange={e => updatePw("confirm", e.target.value)}
+                    />
+                    <button type="button" className="profile__pw-eye" onClick={() => togglePw("confirm")}>
+                      {showPw.confirm ? <EyeOff size={14} /> : <Eye size={14} />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <div className="profile__save-row">
                 {pwSaved && <span className="profile__saved-msg">✓ Password updated</span>}
                 <button type="submit" className="profile__action-btn">
                   <ShieldCheck size={13} /> Update Password
                 </button>
               </div>
+
             </form>
           </div>
 
