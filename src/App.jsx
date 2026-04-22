@@ -18,7 +18,7 @@ function renderView(active, user, onNavigate, onLogout) {
     case "dashboard": return <DashboardView onNavigate={onNavigate} user={user} />;
     case "schedule":  return <ScheduleView />;
     case "grades":    return <GradesView />;
-    case "payments":  return <TuitionView />;
+    case "payments":  return <TuitionView user={user} />;
     case "profile":   return <ProfileView user={user} onLogout={onLogout} />;
     default:          return <PlaceholderView label={active} />;
   }
@@ -72,7 +72,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Navbar onToggleSidebar={() => setSidebar(s => !s)} user={user} />
+      <Navbar onToggleSidebar={() => setSidebar(s => !s)} user={user} onNavigate={navigate} />
       <div className="app-body">
         <Sidebar active={active} onNavigate={navigate} isOpen={sidebar} />
         {sidebar && isMobile() && (

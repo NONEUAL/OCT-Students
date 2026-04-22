@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { User, Lock, Eye, EyeOff, Mail, BookOpen, ShieldCheck } from "lucide-react";
+import { User, Lock, Eye, EyeOff, Mail, ShieldCheck } from "lucide-react";
 import "../styles/auth.css";
 
-const COURSES = ["BSIT", "BSBA", "BSA", "BSCrim", "BSN", "BSHM", "SHS"];
-const YEARS   = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
+const COURSES  = ["BSIT", "BSBA", "BSA", "BSCrim", "BSN", "BSHM", "SHS"];
+const YEARS    = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
 const SECTIONS = ["A", "B", "C", "D"];
 
 export default function RegisterPage({ onGoLogin, onRegister }) {
@@ -12,23 +12,24 @@ export default function RegisterPage({ onGoLogin, onRegister }) {
     course: "", year: "", section: "",
     password: "", confirmPassword: "",
   });
-  const [showPw,    setShowPw]    = useState(false);
-  const [showCPw,   setShowCPw]   = useState(false);
-  const [error,     setError]     = useState("");
-  const [loading,   setLoading]   = useState(false);
+  const [showPw,  setShowPw]  = useState(false);
+  const [showCPw, setShowCPw] = useState(false);
+  const [error,   setError]   = useState("");
+  const [loading, setLoading] = useState(false);
 
   const update = (k, v) => { setForm(f => ({ ...f, [k]: v })); setError(""); };
 
   const validate = () => {
     const { fullName, studentId, email, course, year, section, password, confirmPassword } = form;
-    if (!fullName || !studentId || !email || !course || !year || !section || !password || !confirmPassword)
-      return "Please fill in all fields.";
-    if (!/^\d{4}-\d{5}$/.test(studentId))
-      return "Student ID must be in format: 2024-00142";
-    if (password.length < 6)
-      return "Password must be at least 6 characters.";
-    if (password !== confirmPassword)
-      return "Passwords do not match.";
+    if (!fullName.trim())      return "Full name is required.";
+    if (!studentId.trim())     return "Student ID is required.";
+    if (!email.trim())         return "Email address is required.";
+    if (!course)               return "Please select a course.";
+    if (!year)                 return "Please select a year level.";
+    if (!section)              return "Please select a section.";
+    if (!password)             return "Password is required.";
+    if (password.length < 6)   return "Password must be at least 6 characters.";
+    if (password !== confirmPassword) return "Passwords do not match.";
     return null;
   };
 
@@ -41,14 +42,18 @@ export default function RegisterPage({ onGoLogin, onRegister }) {
     await new Promise(r => setTimeout(r, 700));
 
     const users = JSON.parse(localStorage.getItem("oct_users") || "[]");
-    if (users.find(u => u.studentId === form.studentId)) {
-      setError("A student with this ID already exists."); setLoading(false); return;
+
+    // Only block duplicate Student IDs — any format is valid
+    if (users.find(u => u.studentId.toLowerCase() === form.studentId.trim().toLowerCase())) {
+      setError("That Student ID is already registered. Please sign in instead.");
+      setLoading(false);
+      return;
     }
 
     const newUser = {
-      fullName:  form.fullName,
-      studentId: form.studentId,
-      email:     form.email,
+      fullName:  form.fullName.trim(),
+      studentId: form.studentId.trim(),
+      email:     form.email.trim(),
       course:    form.course,
       year:      form.year,
       section:   form.section,
@@ -62,14 +67,13 @@ export default function RegisterPage({ onGoLogin, onRegister }) {
     setLoading(false);
   };
 
-  const Field = ({ label, name, type = "text", placeholder, icon: Icon, noIcon }) => (
+  const Field = ({ label, name, type = "text", placeholder, icon: Icon }) => (
     <div className="auth-field">
       <label className="auth-field__label">{label}</label>
       <div className="auth-field__wrap">
-        {!noIcon && <span className="auth-field__icon"><Icon size={15} /></span>}
+        <span className="auth-field__icon"><Icon size={15} /></span>
         <input
           className="auth-field__input"
-          style={noIcon ? { paddingLeft: 12 } : {}}
           type={type}
           placeholder={placeholder}
           value={form[name]}
@@ -89,7 +93,7 @@ export default function RegisterPage({ onGoLogin, onRegister }) {
           value={form[name]}
           onChange={e => update(name, e.target.value)}
         >
-          <option value="">Select...</option>
+          <option value="">Select…</option>
           {options.map(o => <option key={o} value={o}>{o}</option>)}
         </select>
       </div>
@@ -106,7 +110,7 @@ export default function RegisterPage({ onGoLogin, onRegister }) {
         <div className="auth-panel__school">Olivarez College Tagaytay</div>
         <div className="auth-panel__sub">Student Portal</div>
         <p className="auth-panel__tagline">
-          Create your account to get access to your grades, schedule, and everything you need for your academic journey.
+          Create your account to access your grades, schedule, and everything you need for your academic journey.
         </p>
         <div className="auth-panel__motto">Mind · Body · Soul</div>
       </div>
@@ -121,22 +125,22 @@ export default function RegisterPage({ onGoLogin, onRegister }) {
 
           <form onSubmit={handleSubmit}>
             {/* Personal */}
-            <Field label="Full Name" name="fullName" icon={User} placeholder="Last Name, First Name Middle Name" />
+            <Field label="Full Name"     name="fullName"  icon={User}         placeholder="Last Name, First Name Middle Name" />
             <div className="auth-field__row">
-              <Field label="Student ID" name="studentId" icon={ShieldCheck} placeholder="2024-00142" />
-              <Field label="Email Address" name="email" type="email" icon={Mail} placeholder="you@email.com" />
+              <Field label="Student ID"    name="studentId" icon={ShieldCheck}   placeholder="Your school-issued ID" />
+              <Field label="Email Address" name="email"     icon={Mail}         type="email" placeholder="you@email.com" />
             </div>
 
             <div className="auth-divider" />
 
             {/* Academic */}
             <div className="auth-field__row">
-              <Select label="Course"  name="course"  options={COURSES} />
-              <Select label="Year Level" name="year" options={YEARS} />
+              <Select label="Course"     name="course"  options={COURSES}  />
+              <Select label="Year Level" name="year"    options={YEARS}    />
             </div>
             <div className="auth-field__row">
-              <Select label="Section" name="section" options={SECTIONS} />
-              <div /> {/* spacer */}
+              <Select label="Section"    name="section" options={SECTIONS} />
+              <div />
             </div>
 
             <div className="auth-divider" />
@@ -177,7 +181,7 @@ export default function RegisterPage({ onGoLogin, onRegister }) {
             </div>
 
             <button className="auth-submit" disabled={loading}>
-              {loading ? "Creating account..." : "Create Account"}
+              {loading ? "Creating account…" : "Create Account"}
             </button>
           </form>
 

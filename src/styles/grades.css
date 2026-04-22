@@ -26,10 +26,11 @@
 .grades__summary-divider { width: 1px; height: 36px; background: #c8e6c9; flex-shrink: 0; }
 .grades__summary-spacer  { flex: 1; min-width: 0; }
 
-/* ── Table ── */
+/* ── Desktop table (hidden on mobile) ── */
 .grades__table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.grades__desktop-table { display: table; }
 
-/* Code badge — same style as schedule */
+/* Code badge */
 .grades__code-badge {
   font-size: 10px; font-weight: 700;
   color: #2d6a35; background: #e8f5e9;
@@ -37,7 +38,7 @@
   letter-spacing: 0.3px; white-space: nowrap;
 }
 
-/* Status badge — only two states, no per-cell color */
+/* Status badge */
 .grades__status-badge {
   font-size: 9.5px; padding: 3px 10px;
   border-radius: 7px; font-weight: 700;
@@ -46,10 +47,47 @@
 .grades__status-badge--passing { background: #e8f5e9; color: #1a3a1a; }
 .grades__status-badge--failed  { background: #fdecea; color: #b71c1c; }
 
-/* Average — plain bold text, no colour */
+/* Average */
 .grades__avg-cell {
   font-family: 'Urbanist', sans-serif;
-  font-size: 13px; font-weight: 700; color: #1a3a1a;
+  font-size: 14px; font-weight: 700; color: #1a3a1a;
+}
+
+/* ── Mobile cards (hidden on desktop) ── */
+.grades__mobile-cards { display: none; flex-direction: column; gap: 10px; }
+
+.grades__mobile-card {
+  padding: 14px 16px;
+}
+
+.grades__mobile-card__header {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 6px;
+}
+
+.grades__mobile-card__subject {
+  font-size: 13px; font-weight: 600; color: #0d1f0d;
+  margin-bottom: 12px; line-height: 1.4;
+}
+
+.grades__mobile-card__scores {
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px;
+}
+
+.grades__mobile-score {
+  display: flex; flex-direction: column;
+  align-items: center; background: #f4fbf5;
+  border-radius: 8px; padding: 8px 4px;
+}
+.grades__mobile-score--avg { background: #e8f5e9; }
+
+.grades__mobile-score__label {
+  font-size: 9px; font-weight: 700; color: #7aaa80;
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
+}
+.grades__mobile-score__val {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 16px; font-weight: 700; color: #1a3a1a;
 }
 
 /* ── Responsive ── */
@@ -58,11 +96,20 @@
   .grades__summary-value { font-size: 22px; }
   .grades__summary-divider { height: 28px; }
 }
-@media (max-width: 480px) {
+
+@media (max-width: 640px) {
+  /* swap table → cards */
+  .grades__table-wrap     { display: none; }
+  .grades__mobile-cards   { display: flex; }
+
   .grades__summary-row    { gap: 12px; }
   .grades__summary-value  { font-size: 20px; }
-  .grades__summary-label  { font-size: 9px; }
   .grades__summary-spacer { display: none; }
   .dropdown-wrap          { width: 100%; }
   .dropdown               { width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .grades__mobile-card__scores { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .grades__mobile-score__val   { font-size: 14px; }
 }

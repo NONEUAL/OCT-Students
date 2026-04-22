@@ -22,14 +22,14 @@ export const NAV_ITEMS = [
   {
     section: "Academic",
     items: [
-      { id: "schedule", label: "Class Schedule",    icon: "Clock"     },
-      { id: "grades",   label: "Grades",             icon: "BarChart2" },
+      { id: "schedule", label: "Class Schedule", icon: "Clock"     },
+      { id: "grades",   label: "Grades",          icon: "BarChart2" },
     ],
   },
   {
     section: "Financial",
     items: [
-      { id: "payments", label: "Tuition & Payments", icon: "Receipt" },
+      { id: "payments", label: "Tuitions", icon: "Receipt" },
     ],
   },
   {
@@ -95,8 +95,6 @@ export const PAYMENTS = [
   { date: "Aug 10, 2025", amount: 4000, desc: "1st Sem — Final Payment", ref: "REF-2025-089", method: "Bank Transfer" },
 ];
 
-// type: "exam" | "holiday" | "event"
-// month is 0-indexed (0 = Jan, 3 = Apr)
 export const CALENDAR_EVENTS = [
   { date: new Date(2026, 3,  7), label: "Foundation Day",      type: "holiday" },
   { date: new Date(2026, 3,  9), label: "Araw ng Kagitingan",  type: "holiday" },

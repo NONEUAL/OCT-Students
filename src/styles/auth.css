@@ -28,6 +28,7 @@
 .auth-field__label  { display: block; font-size: 11px; font-weight: 700; color: #3a5c3a; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
 .auth-field__wrap   { position: relative; display: flex; align-items: center; }
 .auth-field__icon   { position: absolute; left: 12px; color: #7aaa80; pointer-events: none; display: flex; align-items: center; }
+
 .auth-field__input  {
   width: 100%; padding: 11px 42px 11px 38px;
   border: 1.5px solid #c8e6c9; border-radius: 10px;
@@ -35,10 +36,23 @@
   color: #0d1f0d; background: #fff; outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
-.auth-field__input:focus        { border-color: #2d6a35; box-shadow: 0 0 0 3px rgba(45,106,53,0.08); }
-.auth-field__input--error       { border-color: #e53935 !important; }
+/* Placeholder: visible grey, not white */
+.auth-field__input::placeholder { color: #b0c4b1; }
+.auth-field__input:focus { border-color: #2d6a35; box-shadow: 0 0 0 3px rgba(45,106,53,0.08); }
+.auth-field__input:focus::placeholder { color: transparent; }
+.auth-field__input--error { border-color: #e53935 !important; }
+
 .auth-field__eye  { position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: #7aaa80; display: flex; align-items: center; padding: 4px; }
 .auth-field__row  { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* Select inside auth-field */
+.auth-field__input[type="select"],
+.auth-field__wrap select.auth-field__input {
+  padding-left: 12px;
+  appearance: auto;
+  color: #0d1f0d;
+}
+.auth-field__wrap select.auth-field__input option { color: #0d1f0d; }
 
 .auth-error { background: #fdecea; border: 1px solid #f5c6c6; border-radius: 9px; padding: 10px 14px; font-size: 12.5px; color: #c62828; margin-bottom: 16px; }
 

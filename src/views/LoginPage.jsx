@@ -17,10 +17,12 @@ export default function LoginPage({ onLogin, onGoRegister }) {
     }
     setLoading(true);
 
-    // Mock auth — check localStorage for registered user
     await new Promise(r => setTimeout(r, 600));
     const users = JSON.parse(localStorage.getItem("oct_users") || "[]");
-    const found = users.find(u => u.studentId === form.studentId && u.password === form.password);
+    const found = users.find(
+      u => u.studentId.toLowerCase() === form.studentId.trim().toLowerCase()
+        && u.password === form.password
+    );
 
     if (found) {
       localStorage.setItem("oct_session", JSON.stringify(found));
@@ -62,7 +64,7 @@ export default function LoginPage({ onLogin, onGoRegister }) {
                 <input
                   className={`auth-field__input${error ? " auth-field__input--error" : ""}`}
                   type="text"
-                  placeholder="e.g. 2024-00142"
+                  placeholder="Your Student ID"
                   value={form.studentId}
                   onChange={e => update("studentId", e.target.value)}
                   autoFocus
@@ -88,7 +90,7 @@ export default function LoginPage({ onLogin, onGoRegister }) {
             </div>
 
             <button className="auth-submit" disabled={loading}>
-              {loading ? "Signing in..." : "Sign In"}
+              {loading ? "Signing in…" : "Sign In"}
             </button>
           </form>
 

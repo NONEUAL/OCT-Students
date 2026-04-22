@@ -29,29 +29,24 @@ export default function GradesView() {
         subtitle={`${semester} · BSIT 212-A`}
       />
 
+      {/* Summary bar */}
       <div className="grades__summary-row">
         <div className="grades__summary-stat">
           <span className="grades__summary-label">GWA</span>
           <span className="grades__summary-value">{gwa}</span>
           <span className="grades__summary-badge">{honorLabel}</span>
         </div>
-
         <div className="grades__summary-divider" />
-
         <div className="grades__summary-stat">
           <span className="grades__summary-label">Total Units</span>
           <span className="grades__summary-value">{totalUnits}</span>
         </div>
-
         <div className="grades__summary-divider" />
-
         <div className="grades__summary-stat">
           <span className="grades__summary-label">Subjects</span>
           <span className="grades__summary-value">{GRADES.length}</span>
         </div>
-
         <div className="grades__summary-spacer" />
-
         <div className="dropdown-wrap">
           <select
             className="dropdown"
@@ -64,8 +59,9 @@ export default function GradesView() {
         </div>
       </div>
 
-      <div className="card grades__table-wrap">
-        <table className="data-table">
+      {/* Desktop table */}
+      <div className="grades__table-wrap card">
+        <table className="data-table grades__desktop-table">
           <thead>
             <tr>
               {["Code", "Subject", "Units", "Prelim", "Midterm", "Finals", "Average", "Status"].map(h => (
@@ -98,6 +94,43 @@ export default function GradesView() {
             })}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile cards */}
+      <div className="grades__mobile-cards">
+        {GRADES.map((g, i) => {
+          const avg    = ((g.prelim + g.midterm + g.finals) / 3).toFixed(1);
+          const passed = parseFloat(avg) >= 75;
+          return (
+            <div key={i} className="grades__mobile-card card">
+              <div className="grades__mobile-card__header">
+                <span className="grades__code-badge">{g.code}</span>
+                <span className={`grades__status-badge ${passed ? "grades__status-badge--passing" : "grades__status-badge--failed"}`}>
+                  {passed ? "Passing" : "Failed"}
+                </span>
+              </div>
+              <div className="grades__mobile-card__subject">{g.subject}</div>
+              <div className="grades__mobile-card__scores">
+                <div className="grades__mobile-score">
+                  <span className="grades__mobile-score__label">Prelim</span>
+                  <span className="grades__mobile-score__val">{g.prelim}</span>
+                </div>
+                <div className="grades__mobile-score">
+                  <span className="grades__mobile-score__label">Midterm</span>
+                  <span className="grades__mobile-score__val">{g.midterm}</span>
+                </div>
+                <div className="grades__mobile-score">
+                  <span className="grades__mobile-score__label">Finals</span>
+                  <span className="grades__mobile-score__val">{g.finals}</span>
+                </div>
+                <div className="grades__mobile-score grades__mobile-score--avg">
+                  <span className="grades__mobile-score__label">Average</span>
+                  <span className="grades__avg-cell">{avg}</span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
