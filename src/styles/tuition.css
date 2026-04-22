@@ -130,6 +130,29 @@
   line-height: 1.5;
 }
 
+/* ── PDF Download Button ── */
+.tuition__pdf-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 11px 18px;
+  background: linear-gradient(100deg, #0a1f0a, #2d6a35);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.12s;
+  letter-spacing: 0.2px;
+}
+.tuition__pdf-btn:hover  { opacity: 0.88; transform: translateY(-1px); }
+.tuition__pdf-btn:active { transform: translateY(0); }
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .tuition__layout { grid-template-columns: 1fr; }
@@ -148,4 +171,5 @@
   .tuition__breakdown-row    { font-size: 12px; }
   .tuition__breakdown-total  { font-size: 13px; }
   .tuition__status           { font-size: 11.5px; }
+  .tuition__pdf-btn          { font-size: 12px; padding: 10px 14px; }
 }

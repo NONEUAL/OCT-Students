@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import "./styles/global.css";
 
-import Navbar       from "./components/Navbar.jsx";
-import Sidebar      from "./components/Sidebar.jsx";
-import LoginPage    from "./views/LoginPage.jsx";
-import RegisterPage from "./views/RegisterPage.jsx";
+import Navbar      from "./components/Navbar.jsx";
+import Sidebar     from "./components/Sidebar.jsx";
+import LoginPage   from "./views/LoginPage.jsx";
 
 import DashboardView   from "./views/DashboardView.jsx";
 import ScheduleView    from "./views/ScheduleView.jsx";
@@ -28,7 +27,6 @@ export default function App() {
   const isMobile = () => window.innerWidth <= 768;
 
   const [user,      setUser]      = useState(null);
-  const [authPage,  setAuthPage]  = useState("login");
   const [authReady, setAuthReady] = useState(false);
 
   const [active,  setActive]  = useState("dashboard");
@@ -48,12 +46,10 @@ export default function App() {
     return () => window.removeEventListener("resize", handler);
   }, []);
 
-  const handleLogin    = (u) => { setUser(u); setActive("dashboard"); };
-  const handleRegister = (u) => { setUser(u); setActive("dashboard"); };
-  const handleLogout   = () => {
+  const handleLogin  = (u) => { setUser(u); setActive("dashboard"); };
+  const handleLogout = () => {
     localStorage.removeItem("oct_session");
     setUser(null);
-    setAuthPage("login");
     setActive("dashboard");
   };
 
@@ -65,9 +61,7 @@ export default function App() {
   if (!authReady) return null;
 
   if (!user) {
-    return authPage === "login"
-      ? <LoginPage onLogin={handleLogin} onGoRegister={() => setAuthPage("register")} />
-      : <RegisterPage onRegister={handleRegister} onGoLogin={() => setAuthPage("login")} />;
+    return <LoginPage onLogin={handleLogin} />;
   }
 
   return (
